@@ -1,0 +1,42 @@
+* {
+  margin: 0 auto;
+  padding: 0;
+  box-sizing: border-box;
+}
+.shopping_quantity {
+  font-weight: bold;
+  position: absolute;
+  top: -15px;
+  bottom: 0;
+  right: 14px;
+}
+.home {
+  margin: 2rem;
+}
+.search-bar {
+  border-radius: 10px;
+}
+.home-container {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 3rem;
+}
+
+.category {
+  color: white;
+  text-transform: capitalize;
+}
+.category:hover,
+.category.active {
+  border-bottom: 2px solid white;
+  color: aliceblue;
+}
+.category:active,
+.category:focus {
+  color: white;
+  text-decoration: none;
+}
+
+.fav-icon:hover {
+  color: rgb(144, 8, 8);
+}
