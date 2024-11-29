@@ -2,6 +2,12 @@ import React, { useState } from "react";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
+// import InputLabel from '@mui/material/InputLabel';
+import MenuItem from "@mui/material/MenuItem";
+import FormHelperText from "@mui/material/FormHelperText";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
+
 import {
   Button,
   Card,
@@ -10,7 +16,6 @@ import {
   CardText,
   CardTitle,
 } from "reactstrap";
-import { Box } from "@mui/material";
 
 export default function SingleItem({
   product,
@@ -23,6 +28,11 @@ export default function SingleItem({
 
   const { title, description, image, price, id } = product;
 
+  const [count, setCount] = React.useState(0);
+
+  const handleChange = (event) => {
+    setCount(event.target.value);
+  };
   const toggleCollapse = () => {
     setIsCollapsed(!isCollapsed);
   };
@@ -36,28 +46,45 @@ export default function SingleItem({
   return (
     <Card
       style={{
-        width: "12rem",
+        width: "14rem",
         alignItems: "center",
+        margin: "0px",
+        height: "22rem",
       }}
     >
       <img
         alt="Sample"
         src={image}
         style={{
-          width: "12rem",
-          height: "12rem",
+          width: "10rem",
+          height: "10rem",
           padding: "13px",
           paddingBottom: 0,
         }}
       />
-      <CardBody>
-        <CardTitle tag="h6">{title}</CardTitle>
-        <CardSubtitle className="mb-2 text-muted" tag="h6">
-          {`Price: $${price}`}
+      <span onClick={toggleFavorite} className="favIcon-cont">
+        {isFavProduct ? (
+          <FavoriteIcon fontSize="small" style={{ color: "red" }} />
+        ) : (
+          <FavoriteBorderIcon fontSize="small" className="fav-icon" />
+        )}
+      </span>
+      <CardBody
+        style={{
+          padding: "5px",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "flex-end",
+          marginBottom: "10px",
+        }}
+      >
+        <CardTitle style={{ fontFamily: "inherit", fontFamily: "bolder" }}>
+          {title}
+        </CardTitle>
+        <CardSubtitle className="text-muted" tag="h6">
+          {` $${price}`}
         </CardSubtitle>
-        <CardText style={{ fontSize: "13px" }}>
-          {!isCollapsed && description}
-        </CardText>{" "}
+        <CardText>{!isCollapsed && description}</CardText>{" "}
         <span
           onClick={toggleCollapse}
           style={{
@@ -71,8 +98,12 @@ export default function SingleItem({
         </span>
         <div
           style={{
-            marginTop: "15px",
+            marginTop: "10px",
             alignItems: "center",
+            display: "flex",
+            alignContent: "center",
+            justifyContent: "space-between",
+            alignSelf: "stretch",
           }}
         >
           <Button
@@ -82,18 +113,37 @@ export default function SingleItem({
             onClick={() => addToCard(id)}
           >
             Add to Card
-            <AddShoppingCartIcon style={{ marginLeft: "10px" }} />
+            <AddShoppingCartIcon
+              fontSize="small"
+              style={{ marginLeft: "10px" }}
+            />
           </Button>
-          <span
-            onClick={toggleFavorite}
-            style={{ cursor: "pointer", marginLeft: "6.5px" }}
-          >
-            {isFavProduct ? (
-              <FavoriteIcon style={{ color: "red" }} />
-            ) : (
-              <FavoriteBorderIcon className="fav-icon" />
-            )}
-          </span>
+          <div className="number">
+            <FormControl>
+              <Select
+                style={{
+                  height: "32px",
+                  width: "3rem",
+                  // padding: "0",
+                  textAlign: "center",
+                }}
+                value={count}
+                onChange={handleChange}
+                // displayEmpty
+                inputProps={{ "aria-label": "Without label" }}
+              >
+                {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((num) => (
+                  <MenuItem
+                    style={{ padding: "0", textAlign: "center" }}
+                    key={num}
+                    value={num}
+                  >
+                    {num}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          </div>
         </div>
       </CardBody>
     </Card>

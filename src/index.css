@@ -1,7 +1,7 @@
 * {
-  margin: 0 auto;
+  margin: 0;
   padding: 0;
-  box-sizing: border-box;
+  /* box-sizing: border-box; */
 }
 .shopping_quantity {
   font-weight: bold;
@@ -11,7 +11,7 @@
   right: 14px;
 }
 .home {
-  margin: 2rem;
+  margin: 1rem;
 }
 .search-bar {
   border-radius: 10px;
@@ -19,7 +19,7 @@
 .home-container {
   display: flex;
   flex-wrap: wrap;
-  margin: 0 3rem;
+  margin: 0 1.5rem;
 }
 
 .category {
@@ -39,4 +39,74 @@
 
 .fav-icon:hover {
   color: rgb(144, 8, 8);
+}
+.favIcon-cont {
+  position: absolute;
+  right: 8%;
+}
+.category-name {
+  text-align: center;
+  text-transform: capitalize;
+  margin-top: 10px;
+  margin-bottom: 0;
+}
+.css-120dh41-MuiSvgIcon-root {
+  margin: 0;
+}
+span {
+  cursor: pointer;
+}
+.css-lohd6h-MuiSvgIcon-root-MuiSelect-icon {
+  color: red;
+  padding: 0;
+}
+/* .product-card {
+  width: 14rem;
+  align-items: center;
+  height: 20rem;
+
+
+  & img {
+    width: 9rem;
+    height: 9rem;
+    padding: 13px;
+    padding-bottom: 0;
+  
+}
+
+*/
+/* .card-body{
+  padding: 0;
+} */
+
+@media screen and (device-width: 430px) and (device-height: 932px) and (-webkit-device-pixel-ratio: 3) {
+  .home {
+    margin: 1rem; /* Adjust spacing for smaller screen */
+  }
+
+  .home-container {
+    margin: 0 1.5rem; /* Reduce side margins */
+    flex-direction: column; /* Stack items vertically if necessary */
+  }
+
+  .shopping_quantity {
+    right: 10px; /* Adjust for better positioning */
+  }
+
+  .search-bar {
+    border-radius: 15px; /* Slightly more rounded for a polished look */
+  }
+
+  .category {
+    font-size: 14px; /* Slightly smaller text for better fit */
+  }
+
+  .fav-icon:hover {
+    color: rgb(200, 0, 0); /* Adjust hover color for better visibility */
+  }
+
+  .category-name {
+    margin-top: 8px;
+    margin-bottom: 5px;
+  }
 }

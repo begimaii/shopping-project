@@ -1,8 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { Navbar, NavbarBrand, NavItem, NavLink } from "reactstrap";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
+import LoginIcon from "@mui/icons-material/Login";
+import LogoutIcon from "@mui/icons-material/Logout";
 import FavoriteOutlinedIcon from "@mui/icons-material/FavoriteOutlined";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import Button from "@mui/material/Button";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+import { Link } from "react-router";
+import { Form, FormGroup, Label, Input } from "reactstrap";
 import images from "../utils/constants";
 import { Box, Paper } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
@@ -14,8 +21,23 @@ function NavbarComp({
   activeCategory,
   favProducts,
   addProduct,
+  handleSearch,
 }) {
   const [isOpen, setIsOpen] = useState(false);
+  const [input, setInput] = useState("");
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handleLoginClick = () => {
+    setIsOpen(!isOpen);
+    handleClose();
+  };
 
   return (
     <div className="nav-bar">
@@ -64,8 +86,13 @@ function NavbarComp({
           elevation={4}
           className="search-bar"
         >
-          <input type="text" style={{ border: "none", outline: "none" }} />
-          <SearchIcon />
+          <input
+            value={input}
+            type="text"
+            style={{ border: "none", outline: "none" }}
+            onChange={(e) => setInput(e.target.value)}
+          />
+          <SearchIcon onClick={() => handleSearch(input)} />
         </Paper>
         <span style={{ color: "white" }}>
           <FavoriteOutlinedIcon
@@ -74,14 +101,52 @@ function NavbarComp({
           />
           Favorites {favProducts.length}
         </span>
-        <span style={{ color: "white" }}>
-          {" "}
-          <AccountCircleIcon
-            fontSize="medium"
-            style={{ marginRight: "10px" }}
-          />
-          Account/ Sign In/ Sign Up
-        </span>
+        <div>
+          <Button
+            id="basic-button"
+            aria-controls={open ? "basic-menu" : undefined}
+            aria-haspopup="true"
+            aria-expanded={open ? "true" : undefined}
+            onClick={handleClick}
+          >
+            <span style={{ color: "white", cursor: "pointer" }}>
+              {" "}
+              <AccountCircleIcon
+                fontSize="medium"
+                style={{ marginRight: "10px" }}
+              />
+              Profile
+            </span>
+          </Button>
+          <Menu
+            id="basic-menu"
+            anchorEl={anchorEl}
+            open={open}
+            onClose={handleClose}
+            MenuListProps={{
+              "aria-labelledby": "basic-button",
+            }}
+          >
+            <MenuItem onClick={handleClose}>
+              {" "}
+              <AccountCircleIcon
+                fontSize="small"
+                style={{ marginRight: "5px" }}
+              />
+              Profile
+            </MenuItem>
+            <Link to="login">
+              <MenuItem onClick={handleLoginClick}>
+                <LoginIcon fontSize="small" style={{ marginRight: "5px" }} />
+                Login
+              </MenuItem>
+            </Link>
+            <MenuItem onClick={handleClose}>
+              <LogoutIcon fontSize="small" />
+              Logout
+            </MenuItem>
+          </Menu>
+        </div>
         <div style={{ color: "white", position: "relative" }}>
           <ShoppingCartOutlinedIcon fontSize="large" />
           <span className="shopping_quantity">{addProduct.length}</span>

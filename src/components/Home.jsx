@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+
 import SingleItem from "./SingleItem";
 import axios from "axios";
 import { fetchFromApi } from "../utils/fetchFromApi";
@@ -61,6 +62,14 @@ export default function Home() {
     const filtered = products.filter((product) => product.id === productId);
     setAddProduct([...addProduct, filtered]);
   };
+
+  const handleSearch = (text) => {
+    const search = products.filter((item) =>
+      item.title.toLowerCase().includes(text.toLowerCase())
+    );
+    setFilteredProducts(search);
+  };
+
   return (
     <div>
       <NavbarComp
@@ -69,7 +78,9 @@ export default function Home() {
         activeCategory={activeCategory}
         favProducts={favProducts}
         addProduct={addProduct}
+        handleSearch={handleSearch}
       />
+      <h3 className="category-name"> {activeCategory}</h3>
       <div className="home-container">
         {filteredProducts.map((product) => (
           <div key={product.id} className="home">
